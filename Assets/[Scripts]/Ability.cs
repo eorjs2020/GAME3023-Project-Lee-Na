@@ -20,6 +20,11 @@ public class Ability : ScriptableObject
     [Header("Effect Properties")]
     public List<AbilityEffect> effects;
 
+    /// <summary>
+    /// Use this ability.
+    /// </summary>
+    /// <param name="casterGO"></param>
+    /// <param name="targetGO"></param>
     public void UseAbility(GameObject casterGO, GameObject targetGO)
     {
         Debug.Log($"{casterGO.name} used an ability(${abilityName}) to {targetGO.name}");
