@@ -6,7 +6,8 @@ public class DataBase : Singleton<DataBase>
 {
     public Vector3 savedPosition;
     public Vector3 originalPosition;
-    public bool isThereSave;    
+    public bool isThereSave;
+    private List<Pokemon> pokemons;
 
 
     private void Awake()

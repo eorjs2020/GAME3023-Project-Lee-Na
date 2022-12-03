@@ -10,7 +10,7 @@ using UnityEngine.UI;
 /// Win and loss condtion
 /// </summary>
 
-public class EncounterSystemManager : MonoBehaviour
+public class EncounterSystemManager : Singleton<EncounterSystemManager>
 {
     [Header("Manager Properties")]
     public List<Button> abilityButtons;
@@ -30,28 +30,15 @@ public class EncounterSystemManager : MonoBehaviour
     [SerializeField] private bool _isInBattle = true;
     [SerializeField] private bool _isPlayerTurn = true;
     [SerializeField] private bool _isOpponentTurn = false;
-    [SerializeField] private bool _isDebugging = false;
-
-    private static EncounterSystemManager _instance;
-    public static EncounterSystemManager Instance { get { return _instance; } }
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        } else
-        {
-            _instance = this;
-        }
-    }
+    [SerializeField] private bool _isDebugging = false;    
+   
 
     private void Start()
-    {
+    {        
         // TODO - get actor each gameobjects
         player = GameObject.Find("Player"); // placeholder
         opponent = GameObject.Find("Opponent"); // placeholder
-
+        
         if (player == null || opponent == null) return;
 
         //playerAbilities = player.abilities;
@@ -92,6 +79,7 @@ public class EncounterSystemManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         int randNum = Random.Range(0, opponentAbilities.Count);
+        //TODO ifHP heal;
         opponentAbilities[randNum].UseAbility(opponent.gameObject, player.gameObject);
         _isOpponentTurn = false;
 

@@ -13,19 +13,19 @@ public class Pokemon : ScriptableObject
     [SerializeField] private Sprite backSprite;
    
     [SerializeField] private int maxHp;
+    [SerializeField] private int hp;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
-    
+    [SerializeField] private List<Ability> abilities;
+    public int abilityNum = 4;
     public string GetName
     {
         get { return name; }
     }
-
     public string Description
     {
         get { return description; }
     }
-
     public Sprite FrontSprite
     {
         get { return frontSprite; }
@@ -41,11 +41,9 @@ public class Pokemon : ScriptableObject
     public int Attack
     {
         get { return attack; }
-    }
+    }    
     public int Defence
     {
         get { return defense; }
-    }
-    
-
+    }  
 }

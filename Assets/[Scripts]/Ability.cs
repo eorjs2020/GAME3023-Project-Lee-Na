@@ -27,6 +27,7 @@ public class Ability : ScriptableObject
     /// <param name="targetGO"></param>
     public void UseAbility(GameObject casterGO, GameObject targetGO)
     {
+        
         Debug.Log($"{casterGO.name} used an ability(${abilityName}) to {targetGO.name}");
 
         foreach (AbilityEffect effect in effects)
