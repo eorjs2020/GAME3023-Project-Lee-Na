@@ -27,12 +27,16 @@ public class BattleSystem : Singleton<BattleSystem>
     public string battleMessage;
 
     [Header("System Properties")]
+    public ActorStatProperty playerStatProperty;
+    public ActorStatProperty opponentStatProperty;
+    public Pokemon[] pokemonList;
     public List<Button> playerAbilityButtons;
 
     [Header("Debuggin Purpose")]
     [SerializeField] private bool isPlayerTurn = true;
     [SerializeField] private bool isOpponentTurn = false;
     [SerializeField] private bool isDebugging = false;
+    [SerializeField] private Pokemon defaultPokemon;
 
     private void Awake()
     {
@@ -49,30 +53,61 @@ public class BattleSystem : Singleton<BattleSystem>
 
     private void Start()
     {
-        // Get each actor pokemon
-        playerPokemon = GameObject.Find("PlayerPokemon").GetComponent<ActorStatProperty>().pokemon;
-        opponentPokemon = GameObject.Find("OpponentPokemon").GetComponent<ActorStatProperty>().pokemon;
-        if (playerPokemon == null || opponentPokemon == null) return;
+        // Get around system properties
+        playerStatProperty = GameObject.Find("PlayerPokemon_Back").GetComponent<ActorStatProperty>();
+        opponentStatProperty = GameObject.Find("OpponentPokemon_Front").GetComponent<ActorStatProperty>();
+        if (playerStatProperty == null || opponentStatProperty == null) { Debug.LogError("Actor properties are null"); return; }
 
-        // Get each Pokemon ability list
+        SetPlayer();
+        SetOpponent();
+
+        if (playerAbilities == null || opponentAbilities == null) { Debug.LogError("Actor abilities are null"); return; }
+
+    }
+
+    private void SetPlayer()
+    {
+        // Get the player's pokemon from database
+        playerPokemon = Singleton<DataBase>.Instance.GetPlayerPokemon() == null ? defaultPokemon : Singleton<DataBase>.Instance.GetPlayerPokemon();
+        if (playerPokemon == null) return;
+
+        // Get Pokemon ability list
         playerAbilities = playerPokemon.abilities;
-        opponentAbilities = opponentPokemon.abilities;
-        if (playerAbilities == null || opponentAbilities == null) return;
 
         // Apply player Pokemon abilities to action buttons
         for (int i = 0; i < playerAbilities.Count; i++)
         {
-            playerAbilityButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerAbilities[i].abilityName;
-        }
-
-        // If the player has not enough abilities(4), button will be deactivated.
-        foreach (Button btn in playerAbilityButtons)
-        {
-            if (btn.GetComponentInChildren<TextMeshProUGUI>().text == "Button")
+            if (playerAbilities[i] != null)
             {
-                btn.gameObject.SetActive(false);
+                playerAbilityButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = playerAbilities[i].abilityName;
+            }
+            else
+            {
+                playerAbilityButtons[i].gameObject.SetActive(false);
             }
         }
+
+        // Set Actor properties
+        playerStatProperty.SetPokemonSprite = playerPokemon.BackSprite;
+        playerStatProperty.CurrentHealth = playerPokemon.CurrentHp;
+        playerStatProperty.MaxHealth = playerPokemon.MaxHp;
+    }
+
+    private void SetOpponent()
+    {
+        pokemonList = Resources.LoadAll<Pokemon>("Pokemon");
+
+        // Generate an opponent's pokemon
+        opponentPokemon = pokemonList[Random.Range(0, pokemonList.Length)];
+        if (opponentPokemon == null) return;
+
+        // Get Pokemon ability list
+        opponentAbilities = opponentPokemon.abilities;
+
+        // Set Actor properties
+        opponentStatProperty.SetPokemonSprite = opponentPokemon.FrontSprite;
+        opponentStatProperty.CurrentHealth = opponentPokemon.CurrentHp;
+        opponentStatProperty.MaxHealth = opponentPokemon.MaxHp;
     }
 
     private void Update()

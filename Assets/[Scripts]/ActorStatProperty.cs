@@ -6,22 +6,35 @@ using UnityEngine.UI;
 
 public class ActorStatProperty : MonoBehaviour
 {
-    [Header("Battle Properties")]
-    public int currentHealth = 100;
-    public int maxHealth = 100;
-    public List<Ability> abilities;
-    public TextMeshProUGUI maxHealthText;
-    public TextMeshProUGUI currentHealthText;
-    public Pokemon pokemon;
+    [Header("Actor Stat Properties")]
+    [SerializeField] private TextMeshProUGUI maxHealthText;
+    [SerializeField] private TextMeshProUGUI currentHealthText;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private int currentHealth;
+    [SerializeField] private int maxHealth;
 
-    private void Start()
+    public int CurrentHealth
     {
-        maxHealthText.text = " / " + maxHealth.ToString();
-        currentHealthText.text = currentHealth.ToString();
+        get { return currentHealth; }
+        set { 
+            currentHealth = value;
+            Debug.Log(currentHealth);
+            currentHealthText.text = currentHealth.ToString();
+        }
     }
 
-    private void Update()
+    public int MaxHealth
     {
-        currentHealthText.text = currentHealth.ToString();
+        get { return maxHealth; }
+        set {
+            maxHealth = value;
+            maxHealthText.text = " / " + maxHealth.ToString();
+        }
+    }
+
+    public Sprite SetPokemonSprite
+    {
+        get { return spriteRenderer.sprite; }
+        set { spriteRenderer.sprite = value; }
     }
 }
