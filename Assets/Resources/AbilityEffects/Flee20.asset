@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Flee20
   effectType: 2
-  strengthNumber: 20
+  strengthNumber: 0
+  chanceToSucceedRate: 0.2

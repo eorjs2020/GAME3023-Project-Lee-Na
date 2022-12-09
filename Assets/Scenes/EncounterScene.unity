@@ -766,12 +766,15 @@ MonoBehaviour:
   isBattleEnd: 0
   playerPokemon: {fileID: 0}
   playerAbilities: []
+  playerActiveAbilCount: 0
   opponentPokemon: {fileID: 0}
   opponentAbilities: []
-  battleMessageText: {fileID: 1851522571}
-  battleMessage: 
+  opponentActiveAbilCount: 0
   playerStatProperty: {fileID: 0}
   opponentStatProperty: {fileID: 0}
+  battleMessageText: {fileID: 1851522571}
+  battleMessage: 
+  defaultPokemon: {fileID: 11400000, guid: de7905f85ae695e48a8d37529a645686, type: 2}
   pokemonList: []
   playerAbilityButtons:
   - {fileID: 1853160197}
@@ -779,9 +782,8 @@ MonoBehaviour:
   - {fileID: 1665781484}
   - {fileID: 1297102116}
   isPlayerTurn: 1
-  isOpponentTurn: 0
-  isDebugging: 0
-  defaultPokemon: {fileID: 11400000, guid: de7905f85ae695e48a8d37529a645686, type: 2}
+  isInOpponentAction: 0
+  isDebugging: 1
 --- !u!4 &420563207
 Transform:
   m_ObjectHideFlags: 0
@@ -832,6 +834,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 705803316}
   currentHealth: 100
   maxHealth: 100
+  isStunned: 0
+  isFleed: 0
 --- !u!4 &705803315
 Transform:
   m_ObjectHideFlags: 0
@@ -1219,6 +1223,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 961198555}
   currentHealth: 100
   maxHealth: 100
+  isStunned: 0
+  isFleed: 0
 --- !u!212 &961198555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2111,7 +2117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -788, y: -353}
+  m_AnchoredPosition: {x: -788, y: -349}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1851522570
@@ -2209,7 +2215,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -16.413773, y: 30.775887, z: -1585.986, w: -137.46587}
+  m_margin: {x: -6.1552887, y: 30.775887, z: -1577.7789, w: -137.46587}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

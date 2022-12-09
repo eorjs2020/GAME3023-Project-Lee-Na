@@ -9,8 +9,8 @@ public class Ability : ScriptableObject
     [Header("Ability Properties")]
     public string abilityName;
     public AbilityType abilityType;
-    [Range(0f, 1f)] public float chanceToSucceedRate;
     public string abilityDescription;
+    [Range(0f, 1f)] [SerializeField] private float chanceToGainAbility = 0.3f;
 
     // TODO - add visual effect
     // TODO - add sound
@@ -20,22 +20,22 @@ public class Ability : ScriptableObject
     public List<AbilityEffect> effects;
 
     /// <summary>
-    /// Use this ability.
+    /// Use this Ability
     /// </summary>
     /// <param name="casterGO"></param>
     /// <param name="targetGO"></param>
-    public void UseAbility(Pokemon casterGO, Pokemon targetGO)
+    public void UseAbility(ActorStatProperty caster, ActorStatProperty target)
     {
-        Debug.Log($"{casterGO.name} used an ability(${abilityName}) to {targetGO.name}");
+        Debug.Log($"{caster.name} used an ability(${abilityName}) to {target.name}");
 
         // Using all effects in ability
         foreach (AbilityEffect effect in effects)
         {
-            ApplyEffect(casterGO, targetGO, effect);
+            ApplyEffect(caster, target, effect);
         }
     }
 
-    public void ApplyEffect(Pokemon casterGO, Pokemon targetGO, AbilityEffect effect)
+    public void ApplyEffect(ActorStatProperty caster, ActorStatProperty target, AbilityEffect effect)
     {
         string battleLog = "";
         // TODO Send log to message system
@@ -43,22 +43,41 @@ public class Ability : ScriptableObject
         switch (effect.effectType)
         {
             case AbilityEffectType.FLEE:
-                battleLog = $"{casterGO.name} : {casterGO.name} has fled from the battle.";
-                Singleton<BattleSystem>.Instance.EndBattle();
+                if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
+                {
+                    battleLog = $"{caster.name} : {caster.name} has fled from the battle.";
+                    GetFlee(caster);
+                } else {
+                    battleLog = $"{caster.name} : {caster.name} failed to flee from the battle.";
+                }
                 break;
             case AbilityEffectType.ATTACK:
-                battleLog = $"{casterGO.name} : {targetGO.name} got damaged '{effect.strengthNumber}' points.";
-                GetDamaged(targetGO, effect.strengthNumber);
+                if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
+                {
+                    battleLog = $"{caster.name} : {target.name} got damaged '{effect.strengthNumber}' points.";
+                    GetDamaged(target, effect.strengthNumber);
+                }
+                else
+                {
+                    battleLog = $"{caster.name} : {caster.name} failed to attack.";
+                }
                 break;
             case AbilityEffectType.HEAL:
-                battleLog = $"{casterGO.name} : {casterGO.name} heald '{effect.strengthNumber}' points";
-                GetHeald(casterGO, effect.strengthNumber);
+                if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
+                {
+                    battleLog = $"{caster.name} : {caster.name} heald '{effect.strengthNumber}' points";
+                    GetHeald(caster, effect.strengthNumber);
+                } else {
+                    battleLog = $"{caster.name} : {caster.name} failed to heal itself.";
+                }
                 break;
             case AbilityEffectType.STUN:
-                if (Random.Range(0.0f, 100.0f) <= effect.strengthNumber)
+                if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
                 {
-                    battleLog = $"{casterGO.name} : {targetGO.name} is stunned!";
-                    GetStunned(targetGO);
+                    battleLog = $"{caster.name} : {target.name} is stunned!";
+                    GetStunned(target);
+                } else  {
+                    battleLog = $"";
                 }
                 break;
             case AbilityEffectType.NONE:
@@ -69,27 +88,40 @@ public class Ability : ScriptableObject
         Debug.Log(battleLog);
     }
 
-    public void GetStunned(Pokemon target)
+    public void GetFlee(ActorStatProperty target)
     {
-        
+        HideTarget(target);
+        Singleton<BattleSystem>.Instance.EndBattle();
     }
 
-    public void GetDamaged(Pokemon target, int damage)
+    public void GetStunned(ActorStatProperty target)
     {
-        target.CurrentHp -= damage;
+        target.IsStunned = true;
+    }
 
-        if (target.CurrentHp <= 0)
+    public void GetDamaged(ActorStatProperty target, int damage)
+    {
+        target.CurrentHealth -= damage;
+
+        if (target.CurrentHealth <= 0)
         {
-            target.CurrentHp = target.MaxHp;
+            HideTarget(target);
             Singleton<BattleSystem>.Instance.EndBattle();
+            target.CurrentHealth = target.MaxHealth;
+        }
+    }
+    public void GetHeald(ActorStatProperty target, int healdPoints)
+    {
+        if (target.CurrentHealth <= target.MaxHealth)
+        {
+            target.CurrentHealth += healdPoints;
         }
     }
 
-    public void GetHeald(Pokemon target, int healdPoints)
+    private static void HideTarget(ActorStatProperty target)
     {
-        if (target.CurrentHp <= target.MaxHp)
-        {
-            target.CurrentHp += healdPoints;
-        }
+        target.gameObject.SetActive(false);
+        target.GetMaxHPText().gameObject.SetActive(false);
+        target.GetCurrentHPText().gameObject.SetActive(false);
     }
 }

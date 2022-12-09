@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: HyperFlee
   abilityType: 3
-  chanceToSucceedRate: 1
+  chanceToSucceedRate: 0.5
   abilityDescription: Flee 50% chance
   effects:
   - {fileID: 11400000, guid: fda95cfd74c0c6548885955ca7f66d02, type: 2}
