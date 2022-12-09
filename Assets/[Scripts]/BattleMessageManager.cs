@@ -51,9 +51,10 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
     public void SendTextMessage(string message, string sender)
     {
         // Different message sender. Delete previous messages
-        Debug.Log($"Message Sender : {sender}");
+        Debug.Log($"Message Sender : {sender}, Message = {message}");
         if (sender != messageSender)
         {
+            Debug.Log($"Removed Message, Message Sender : {sender}, Message = {message}");
             messages.RemoveRange(0, messages.Count);
             messageSender = sender;
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -28,6 +29,8 @@ public class Ability : ScriptableObject
         // Using all effects in ability
         foreach (AbilityEffect effect in effects)
         {
+            if (Singleton<BattleSystem>.Instance.isBattleEnd) return;
+
             ApplyEffect(caster, target, effect);
         }
     }
@@ -42,7 +45,7 @@ public class Ability : ScriptableObject
                 if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
                 {
                     battleLog = $"{caster.PokemonName.ToUpper()} has succesfully fled from the battle.";
-                    GetFlee(caster);
+                    GetFlee(caster, target);
                 } else {
                     battleLog = $"{caster.PokemonName.ToUpper()} failed to flee from the battle.";
                 }
@@ -52,7 +55,7 @@ public class Ability : ScriptableObject
                 {
                     //TODO Animation, Sound_FX
                     battleLog = $"{target.PokemonName.ToUpper()} got damaged '{effect.strengthNumber}' points.";
-                    GetDamaged(target, effect.strengthNumber);
+                    GetDamaged(caster, target, effect.strengthNumber);
                 }
                 else
                 {
@@ -85,12 +88,21 @@ public class Ability : ScriptableObject
         }
 
         BattleMessageManager.Instance.SendTextMessage(battleLog, caster.PokemonName);
+        
+        if (target.CurrentHealth <= 0)
+        {
+            Singleton<BattleMessageManager>.Instance.SendTextMessage($"{caster.PokemonName.ToUpper()} won the battle.", caster.PokemonName);
+            Singleton<BattleSystem>.Instance.EndBattle(target, caster);
+            target.CurrentHealth = target.MaxHealth;
+            HideTarget(target);
+        }
     }
 
-    public void GetFlee(ActorStatProperty target)
+    public void GetFlee(ActorStatProperty caster, ActorStatProperty target)
     {
-        HideTarget(target);
-        Singleton<BattleSystem>.Instance.EndBattle();
+        Singleton<BattleMessageManager>.Instance.SendTextMessage($"{target.PokemonName.ToUpper()} won the battle.", caster.PokemonName);
+        Singleton<BattleSystem>.Instance.EndBattle(caster, target);
+        HideTarget(caster);
     }
 
     public void GetStunned(ActorStatProperty target)
@@ -98,15 +110,13 @@ public class Ability : ScriptableObject
         target.IsStunned = true;
     }
 
-    public void GetDamaged(ActorStatProperty target, int damage)
+    public void GetDamaged(ActorStatProperty caster, ActorStatProperty target, int damage)
     {
         target.CurrentHealth -= damage;
 
         if (target.CurrentHealth <= 0)
         {
-            HideTarget(target);
-            Singleton<BattleSystem>.Instance.EndBattle();
-            target.CurrentHealth = target.MaxHealth;
+            target.CurrentHealth = 0;
         }
     }
     public void GetHeald(ActorStatProperty target, int healdPoints)
@@ -114,6 +124,11 @@ public class Ability : ScriptableObject
         if (target.CurrentHealth <= target.MaxHealth)
         {
             target.CurrentHealth += healdPoints;
+            
+            if (target.CurrentHealth > target.MaxHealth)
+            {
+                target.CurrentHealth = target.MaxHealth;
+            }
         }
     }
 
