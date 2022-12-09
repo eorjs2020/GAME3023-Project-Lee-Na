@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum AbilityEffectType
 {
-    MELEEATTACK,
-    RANGEATTACK,
+    ATTACK,
     HEAL,
     FLEE,
+    STUN,
     NONE
 }
