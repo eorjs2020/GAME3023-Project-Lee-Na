@@ -32,11 +32,17 @@ public class BattleSystem : Singleton<BattleSystem>
     [SerializeField] private Pokemon defaultPokemon;
     public Pokemon[] pokemonList;
     public List<Button> playerAbilityButtons;
-
+    
     [Header("Debuggin Purpose")]
     [SerializeField] private bool isPlayerTurn = true;
     [SerializeField] private bool isInOpponentAction = false;
     [SerializeField] private bool isDebugging = false;
+
+    [Header("Animator")]
+    public Animator playerAnimator;
+    public Animator opponentAnimator;
+    public ParticleSystem playerParticle;
+    public ParticleSystem opponentParticle;
 
     private void Awake()
     {

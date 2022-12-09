@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 public class DataBase : Singleton<DataBase>
 {
     public Vector3 savedPosition;
     public Vector3 originalPosition;
     public bool isThereSave;
-    public Pokemon pokemon;
+    public Pokemon playerPokemon;
 
     private void Awake()
     {
         var obj = FindObjectsOfType<DataBase>();
         if (obj.Length == 1)
         {
-            LoadGame();
+            LoadGame();            
             DontDestroyOnLoad(gameObject);             
         }
         else
@@ -53,13 +55,13 @@ public class DataBase : Singleton<DataBase>
             temp.x = data.positionX;
             temp.y = data.positionY;
             temp.z = data.positionZ;
-            pokemon = Resources.Load<Pokemon>($"Pokemon/{data.Pokemon}");
-            pokemon.Abilities.Clear();
-            pokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability1}"));
-            pokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability2}"));
-            pokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability3}"));
-            pokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability4}"));
-        }
+            playerPokemon = Resources.Load<Pokemon>($"Pokemon/{data.Pokemon}");
+            playerPokemon.Abilities.Clear();
+            playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability1}"));
+            playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability2}"));
+            playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability3}"));
+            playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability4}"));            
+        }        
     }
 
 

@@ -19,6 +19,8 @@ public class Ability : ScriptableObject
     [Header("Effect Properties")]
     public List<AbilityEffect> effects;
 
+
+
     public void UseAbility(ActorStatProperty caster, ActorStatProperty target)
     {
         Debug.Log($"{caster.name} used an ability(${abilityName}) to {target.name}");
@@ -50,6 +52,7 @@ public class Ability : ScriptableObject
             case AbilityEffectType.ATTACK:
                 if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
                 {
+                    //TODO Animation, Sound_FX
                     battleLog = $"{caster.name} : {target.name} got damaged '{effect.strengthNumber}' points.";
                     GetDamaged(target, effect.strengthNumber);
                 }
@@ -61,6 +64,7 @@ public class Ability : ScriptableObject
             case AbilityEffectType.HEAL:
                 if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
                 {
+                    //TODO PaticlePlay, Sound_FX
                     battleLog = $"{caster.name} : {caster.name} heald '{effect.strengthNumber}' points";
                     GetHeald(caster, effect.strengthNumber);
                 } else {
@@ -120,4 +124,6 @@ public class Ability : ScriptableObject
         target.GetMaxHPText().gameObject.SetActive(false);
         target.GetCurrentHPText().gameObject.SetActive(false);
     }
+
+
 }

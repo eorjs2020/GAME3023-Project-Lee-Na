@@ -19,10 +19,10 @@ public class Data
         positionX = data.savedPosition.x;
         positionY = data.savedPosition.y;
         positionZ = data.savedPosition.z;
-        Pokemon = data.GetPokemon().name;
-        Ability1 = data.GetPokemon().Abilities[0].name;
-        Ability2 = data.GetPokemon().Abilities[1].name;
-        Ability3 = data.GetPokemon().Abilities[2].name;
-        Ability4 = data.GetPokemon().Abilities[3].name;
+        Pokemon = data.GetPlayerPokemon().name;
+        Ability1 = data.GetPlayerPokemon().Abilities[0].name;
+        Ability2 = data.GetPlayerPokemon().Abilities[1].name;
+        Ability3 = data.GetPlayerPokemon().Abilities[2].name;
+        Ability4 = data.GetPlayerPokemon().Abilities[3].name;
     }
 }
