@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AbilityEffectType
+public enum AbilityType
 {
-    ATTACK,
+    MELEEATTACK,
+    RANGEATTACK,
     HEAL,
     FLEE,
-    STUN,
     NONE
 }
