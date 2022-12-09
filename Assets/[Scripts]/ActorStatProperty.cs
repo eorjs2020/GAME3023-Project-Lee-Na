@@ -12,13 +12,14 @@ public class ActorStatProperty : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
+    [SerializeField] private bool isStunned = false;
+    [SerializeField] private bool isFleed = false;
 
     public int CurrentHealth
     {
         get { return currentHealth; }
         set { 
             currentHealth = value;
-            Debug.Log(currentHealth);
             currentHealthText.text = currentHealth.ToString();
         }
     }
@@ -37,4 +38,19 @@ public class ActorStatProperty : MonoBehaviour
         get { return spriteRenderer.sprite; }
         set { spriteRenderer.sprite = value; }
     }
+
+    public bool IsStunned
+    {
+        get { return isStunned; }
+        set { isStunned = value; }
+    }
+
+    public bool IsFleed
+    {
+        get { return isFleed; }
+        set { isFleed = value; }
+    }
+
+    public TextMeshProUGUI GetMaxHPText() { return maxHealthText; }
+    public TextMeshProUGUI GetCurrentHPText() { return currentHealthText; }
 }

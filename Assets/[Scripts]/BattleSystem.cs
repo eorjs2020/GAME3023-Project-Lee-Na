@@ -19,24 +19,24 @@ public class BattleSystem : Singleton<BattleSystem>
     [Header("Actor Propeties")]
     public Pokemon playerPokemon;
     public List<Ability> playerAbilities;
+    public int playerActiveAbilCount;
     public Pokemon opponentPokemon;
     public List<Ability> opponentAbilities;
+    public int opponentActiveAbilCount;
+    public ActorStatProperty playerStatProperty;
+    public ActorStatProperty opponentStatProperty;
 
     [Header("Battle Properties")]
     public TextMeshProUGUI battleMessageText;
     public string battleMessage;
-
-    [Header("System Properties")]
-    public ActorStatProperty playerStatProperty;
-    public ActorStatProperty opponentStatProperty;
+    [SerializeField] private Pokemon defaultPokemon;
     public Pokemon[] pokemonList;
     public List<Button> playerAbilityButtons;
 
     [Header("Debuggin Purpose")]
     [SerializeField] private bool isPlayerTurn = true;
-    [SerializeField] private bool isOpponentTurn = false;
+    [SerializeField] private bool isInOpponentAction = false;
     [SerializeField] private bool isDebugging = false;
-    [SerializeField] private Pokemon defaultPokemon;
 
     private void Awake()
     {
@@ -62,9 +62,147 @@ public class BattleSystem : Singleton<BattleSystem>
         SetOpponent();
 
         if (playerAbilities == null || opponentAbilities == null) { Debug.LogError("Actor abilities are null"); return; }
-
     }
 
+    private void Update()
+    {
+        // Opponent turn
+        if (!isPlayerTurn && !isBattleEnd)
+        {
+            isInOpponentAction = true;
+            if (opponentStatProperty.IsStunned)
+            {
+                StartCoroutine(StatusAnomaly(opponentStatProperty));
+                TogglePlayerTurn();
+                return;
+            }
+
+            StartCoroutine(UseOpponentAbility());
+            TogglePlayerTurn();
+        }
+        // Player turn AND Opponent action finished |OR end battle
+        else if ((isPlayerTurn && !isInOpponentAction) || isBattleEnd)
+        {
+            //Debug.LogError("AAAAAAAAAAAAAAAAAA");
+            //StopCoroutine(UseOpponentAbility());
+        }
+
+        // Show Player's ability buttons
+        if (!isInOpponentAction && !playerAbilityButtons[0].gameObject.activeSelf && !isBattleEnd)
+        {
+            for (int i = 0; i < playerActiveAbilCount; i++)
+            {
+                playerAbilityButtons[i].gameObject.SetActive(true);
+            }
+        }
+        // Hide Player's ability buttons
+        else if ( (isInOpponentAction || isBattleEnd) 
+            && playerAbilityButtons[0].gameObject.activeSelf)
+        {
+            for (int i = 0; i < playerActiveAbilCount; i++)
+            {
+                playerAbilityButtons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    IEnumerator StatusAnomaly(ActorStatProperty actorStatProperty)
+    {
+        // Time space a bit between turns
+        yield return new WaitForSeconds(2.0f);
+
+        // TODO:: Message
+        Debug.LogError("Stunned!!!!!!!");
+        actorStatProperty.IsStunned = false;
+        // TODO:: Message. normal status
+        Debug.LogError("!!!!!!!!!Normal");
+
+        isInOpponentAction = false;
+
+        yield break;
+    }
+
+    IEnumerator UseOpponentAbility()
+    {
+        // Time space a bit between turns
+        yield return new WaitForSeconds(2.0f);
+
+        // Opponent select ability according to AI logic then use it
+        OpponentSelectAbility().UseAbility(opponentStatProperty, playerStatProperty);
+
+        // Time space a bit between turns
+        yield return new WaitForSeconds(2.0f);
+        isInOpponentAction = false;
+
+        if (isDebugging) Debug.Log($"End opponent turn. _isOpponentTurn = {isInOpponentAction}");
+        yield break;
+    }
+
+    private Ability OpponentSelectAbility()
+    {
+        // 0 (33%): choose random ability
+        // 1 and 2 (66%) : choose ability according to condition
+        if (Random.Range(0, 3) >= 1)
+        {
+            Debug.Log($"Opponent chose to using a brain!");
+
+            if (opponentStatProperty.CurrentHealth <= opponentStatProperty.MaxHealth / 10)
+            {
+                for (int index = 0; index < opponentActiveAbilCount; index++)
+                {
+                    if (opponentAbilities[index].abilityType == AbilityType.FLEE)
+                    {
+                        Debug.Log($"Opponent chose a FLEE ability.");
+                        return opponentAbilities[index];
+                    }
+                }
+            }
+            else if (opponentStatProperty.CurrentHealth <= opponentStatProperty.MaxHealth / 2)
+            {
+                for (int index = 0; index < opponentActiveAbilCount; index++)
+                {
+                    if (opponentAbilities[index].abilityType == AbilityType.HEAL)
+                    {
+                        Debug.Log($"Opponent chose a HEAL ability.");
+                        return opponentAbilities[index];
+                    }
+                }
+            }
+            else if (playerStatProperty.CurrentHealth >= playerStatProperty.MaxHealth / 2)
+            {
+                for (int index = 0; index < opponentActiveAbilCount; index++)
+                {
+                    if (opponentAbilities[index].abilityType == AbilityType.MELEEATTACK)
+                    {
+                        Debug.Log($"Opponent chose a MELEEATTACK ability.");
+                        return opponentAbilities[index];
+                    }
+                }
+            }
+        }
+
+        // 0 (33%): choose random ability
+        // if opponent doesn't have a matched ability
+        Debug.Log($"Opponent chose a random ability.");
+        return opponentAbilities[Random.Range(0, opponentActiveAbilCount)];
+    }
+
+    private void TogglePlayerTurn()
+    {
+        isPlayerTurn = !isPlayerTurn;
+
+        if (isDebugging) Debug.Log($"_isPlayerTurn = {isPlayerTurn}");
+    }
+
+    public void EndBattle()
+    {
+        isBattleEnd = true;
+
+        if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
+    }
+
+
+    #region Actor setting
     private void SetPlayer()
     {
         // Get the player's pokemon from database
@@ -87,6 +225,13 @@ public class BattleSystem : Singleton<BattleSystem>
             }
         }
 
+        // Count active ability count
+        foreach (Ability ability in playerAbilities)
+        {
+            if (ability != null)
+                playerActiveAbilCount++;
+        }
+
         // Set Actor properties
         playerStatProperty.SetPokemonSprite = playerPokemon.BackSprite;
         playerStatProperty.CurrentHealth = playerPokemon.CurrentHp;
@@ -104,149 +249,64 @@ public class BattleSystem : Singleton<BattleSystem>
         // Get Pokemon ability list
         opponentAbilities = opponentPokemon.abilities;
 
+        // Count active ability count
+        foreach (Ability ability in opponentAbilities)
+        {
+            if (ability != null)
+                opponentActiveAbilCount++;
+        }
+
         // Set Actor properties
         opponentStatProperty.SetPokemonSprite = opponentPokemon.FrontSprite;
         opponentStatProperty.CurrentHealth = opponentPokemon.CurrentHp;
         opponentStatProperty.MaxHealth = opponentPokemon.MaxHp;
     }
-
-    private void Update()
-    {
-        if (!isPlayerTurn && !isBattleEnd)
-        {
-            StartCoroutine(UseOpponentAbility());
-            isOpponentTurn = true;
-            ToggleActorTurn();
-        }
-        else if ((isPlayerTurn && !isOpponentTurn) || isBattleEnd)
-        {
-            StopCoroutine(UseOpponentAbility());
-        }
-    }
-
-    IEnumerator UseOpponentAbility()
-    {
-        yield return new WaitForSeconds(2.0f);
-
-        //int randNum = Random.Range(0, opponentAbilities.Count);        
-        //opponentAbilities[randNum].UseAbility(opponentPokemon, playerPokemon);
-
-        OpponentSelectAbility().UseAbility(opponentPokemon, playerPokemon);
-
-        isOpponentTurn = false;
-
-        if (isDebugging) Debug.Log($"End opponent turn. _isOpponentTurn = {isOpponentTurn}");
-        yield return null;
-    }
-
-    private Ability OpponentSelectAbility()
-    {
-        // 0 (33%): choose random ability
-        // 1 and 2 (66%) : choose ability according to condition
-        if (Random.Range(0, 3) >= 1)
-        {
-            Debug.Log($"Opponent chose to using a brain!");
-
-            if (opponentPokemon.CurrentHp <= opponentPokemon.MaxHp / 10)
-            {
-                for (int index = 0; index < opponentAbilities.Count; index++)
-                {
-                    if (opponentAbilities[index].abilityType == AbilityType.FLEE)
-                    {
-                        Debug.Log($"Opponent chose a FLEE ability.");
-                        return opponentAbilities[index];
-                    }
-                }
-            }
-            else if (opponentPokemon.CurrentHp <= opponentPokemon.MaxHp / 2)
-            {
-                for (int index = 0; index < opponentAbilities.Count; index++)
-                {
-                    if (opponentAbilities[index].abilityType == AbilityType.HEAL)
-                    {
-                        Debug.Log($"Opponent chose a HEAL ability.");
-                        return opponentAbilities[index];
-                    }
-                }
-            }
-            else if (playerPokemon.CurrentHp >= playerPokemon.MaxHp / 2)
-            {
-                for (int index = 0; index < opponentAbilities.Count; index++)
-                {
-                    if (opponentAbilities[index].abilityType == AbilityType.MELEEATTACK)
-                    {
-                        Debug.Log($"Opponent chose a MELEEATTACK ability.");
-                        return opponentAbilities[index];
-                    }
-                }
-            }
-        }
-
-        // 0 (33%): choose random ability
-        // if opponent doesn't have a matched ability
-        Debug.Log($"Opponent chose a random ability.");
-        return opponentAbilities[Random.Range(0, opponentAbilities.Count)];
-    }
-
-    private void ToggleActorTurn()
-    {
-        isPlayerTurn = !isPlayerTurn;
-
-        if (isDebugging) Debug.Log($"_isPlayerTurn = {isPlayerTurn}");
-    }
-
-    public void EndBattle()
-    {
-        isBattleEnd = true;
-
-        if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
-    }
-
+    #endregion
 
 
     #region Ability Button Functions
     public void OnClickAbility1Button()
     {
-        if (isPlayerTurn && !isBattleEnd && !isOpponentTurn)
+        if (isPlayerTurn && !isBattleEnd && !isInOpponentAction)
         {
             if (playerAbilities[0] != null)
             {
-                playerAbilities[0].UseAbility(playerPokemon, opponentPokemon);
+                playerAbilities[0].UseAbility(playerStatProperty, opponentStatProperty);
             }
-            ToggleActorTurn();
+            TogglePlayerTurn();
         }
     }
     public void OnClickAbility2Button()
     {
-        if (isPlayerTurn && !isBattleEnd && !isOpponentTurn)
+        if (isPlayerTurn && !isBattleEnd && !isInOpponentAction)
         {
             if (playerAbilities[1] != null)
             {
-                playerAbilities[1].UseAbility(playerPokemon, opponentPokemon);
+                playerAbilities[1].UseAbility(playerStatProperty, opponentStatProperty);
             }
-            ToggleActorTurn();
+            TogglePlayerTurn();
         }
     }
     public void OnClickAbility3Button()
     {
-        if (isPlayerTurn && !isBattleEnd && !isOpponentTurn)
+        if (isPlayerTurn && !isBattleEnd && !isInOpponentAction)
         {
             if (playerAbilities[2] != null)
             {
-                playerAbilities[2].UseAbility(playerPokemon, opponentPokemon);
+                playerAbilities[2].UseAbility(playerStatProperty, opponentStatProperty);
             }
-            ToggleActorTurn();
+            TogglePlayerTurn();
         }
     }
     public void OnClickAbility4Button()
     {
-        if (isPlayerTurn && !isBattleEnd && !isOpponentTurn)
+        if (isPlayerTurn && !isBattleEnd && !isInOpponentAction)
         {
             if (playerAbilities[3] != null)
             {
-                playerAbilities[3].UseAbility(playerPokemon, opponentPokemon);
+                playerAbilities[3].UseAbility(playerStatProperty, opponentStatProperty);
             }
-            ToggleActorTurn();
+            TogglePlayerTurn();
         }
     }
     #endregion

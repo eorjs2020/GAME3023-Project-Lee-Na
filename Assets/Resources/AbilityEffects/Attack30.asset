@@ -15,3 +15,4 @@ MonoBehaviour:
   effectName: Attack30
   effectType: 0
   strengthNumber: 30
+  chanceToSucceedRate: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: HyperCure
   abilityType: 2
-  chanceToSucceedRate: 1
+  chanceToSucceedRate: 0.8
   abilityDescription: Heal 30 potins
   effects:
   - {fileID: 11400000, guid: 2608e8eef74ce8f499b4a63d5fc3376e, type: 2}
