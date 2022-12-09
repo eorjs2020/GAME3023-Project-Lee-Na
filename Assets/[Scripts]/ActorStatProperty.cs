@@ -4,6 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum AbilityNum
+{
+    IDLE,
+    ATTACK,
+    HEAL
+}
+
 public class ActorStatProperty : MonoBehaviour
 {
     [Header("Actor Stat Properties")]
@@ -15,6 +22,18 @@ public class ActorStatProperty : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private bool isStunned = false;
     [SerializeField] private bool isFleed = false;
+    private Animator animator;
+    public string animatorParameter = "BattleAnimation";
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    public Animator Animator
+    {
+        get { return animator; }
+    }
 
     public string PokemonName
     {
@@ -56,6 +75,16 @@ public class ActorStatProperty : MonoBehaviour
     {
         get { return isFleed; }
         set { isFleed = value; }
+    }
+
+    public void AnimationReset()
+    {
+        animator.SetInteger(animatorParameter, 0);
+    }
+    
+    public void PlayAnimation(AbilityNum abitly)
+    {
+        animator.SetInteger(animatorParameter, (int)abitly);
     }
 
     public TextMeshProUGUI GetMaxHPText() { return maxHealthText; }
