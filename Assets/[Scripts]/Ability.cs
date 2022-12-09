@@ -19,14 +19,10 @@ public class Ability : ScriptableObject
     [Header("Effect Properties")]
     public List<AbilityEffect> effects;
 
-    /// <summary>
-    /// Use this Ability
-    /// </summary>
-    /// <param name="casterGO"></param>
-    /// <param name="targetGO"></param>
     public void UseAbility(ActorStatProperty caster, ActorStatProperty target)
     {
         Debug.Log($"{caster.name} used an ability(${abilityName}) to {target.name}");
+        BattleMessageManager.Instance.SendTextMessage($"{caster.name} used an ability(${abilityName}) to {target.name}");
 
         // Using all effects in ability
         foreach (AbilityEffect effect in effects)
