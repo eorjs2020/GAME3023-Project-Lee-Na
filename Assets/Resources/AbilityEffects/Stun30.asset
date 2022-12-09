@@ -15,4 +15,4 @@ MonoBehaviour:
   effectName: Stun30
   effectType: 3
   strengthNumber: 0
-  chanceToSucceedRate: 1
+  chanceToSucceedRate: 0.3

@@ -14,7 +14,7 @@ using UnityEngine.UI;
 public class BattleSystem : Singleton<BattleSystem>
 {
     [Header("Battle System Status")]
-    [SerializeField] private bool isBattleEnd = false;
+    [SerializeField] public bool isBattleEnd = false;
 
     [Header("Actor Propeties")]
     public Pokemon playerPokemon;
@@ -86,16 +86,17 @@ public class BattleSystem : Singleton<BattleSystem>
             StartCoroutine(UseOpponentAbility());
             TogglePlayerTurn();
         }
-        // Player turn AND Opponent action finished |OR end battle
-        else if ((isPlayerTurn && !isInOpponentAction) || isBattleEnd)
-        {
-            //Debug.LogError("AAAAAAAAAAAAAAAAAA");
-            //StopCoroutine(UseOpponentAbility());
-        }
 
         // Show Player's ability buttons
         if (!isInOpponentAction && !playerAbilityButtons[0].gameObject.activeSelf && !isBattleEnd)
         {
+            if (playerStatProperty.IsStunned)
+            {
+                StartCoroutine(StatusAnomaly(playerStatProperty));
+                TogglePlayerTurn();
+                return;
+            }
+
             for (int i = 0; i < playerActiveAbilCount; i++)
             {
                 playerAbilityButtons[i].gameObject.SetActive(true);
@@ -119,8 +120,10 @@ public class BattleSystem : Singleton<BattleSystem>
 
         BattleMessageManager.Instance.SendTextMessage($"{actorStatProperty.PokemonName.ToUpper()} is stunned. Cannot move!", actorStatProperty.PokemonName);
         actorStatProperty.IsStunned = false;
-        
-        isInOpponentAction = false;
+
+        yield return new WaitForSeconds(1.0f);
+
+        isInOpponentAction = !isInOpponentAction;
 
         yield break;
     }
@@ -197,7 +200,7 @@ public class BattleSystem : Singleton<BattleSystem>
         if (isDebugging) Debug.Log($"_isPlayerTurn = {isPlayerTurn}");
     }
 
-    public void EndBattle()
+    public void EndBattle(ActorStatProperty loser, ActorStatProperty winner)
     {
         isBattleEnd = true;
 

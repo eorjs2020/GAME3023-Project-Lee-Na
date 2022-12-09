@@ -15,4 +15,4 @@ MonoBehaviour:
   effectName: Heal10
   effectType: 1
   strengthNumber: 10
-  chanceToSucceedRate: 1
+  chanceToSucceedRate: 0.8
