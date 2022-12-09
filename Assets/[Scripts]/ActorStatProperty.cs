@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ActorStatProperty : MonoBehaviour
 {
     [Header("Actor Stat Properties")]
+    [SerializeField] private string pokemonName;
     [SerializeField] private TextMeshProUGUI maxHealthText;
     [SerializeField] private TextMeshProUGUI currentHealthText;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -14,6 +15,12 @@ public class ActorStatProperty : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private bool isStunned = false;
     [SerializeField] private bool isFleed = false;
+
+    public string PokemonName
+    {
+        get { return pokemonName; }
+        set { pokemonName = value; }
+    }
 
     public int CurrentHealth
     {

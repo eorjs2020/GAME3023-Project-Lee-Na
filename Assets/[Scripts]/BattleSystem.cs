@@ -117,12 +117,9 @@ public class BattleSystem : Singleton<BattleSystem>
         // Time space a bit between turns
         yield return new WaitForSeconds(2.0f);
 
-        // TODO:: Message
-        Debug.LogError("Stunned!!!!!!!");
+        BattleMessageManager.Instance.SendTextMessage($"{actorStatProperty.PokemonName.ToUpper()} is stunned. Cannot move!", actorStatProperty.PokemonName);
         actorStatProperty.IsStunned = false;
-        // TODO:: Message. normal status
-        Debug.LogError("!!!!!!!!!Normal");
-
+        
         isInOpponentAction = false;
 
         yield break;
@@ -214,6 +211,7 @@ public class BattleSystem : Singleton<BattleSystem>
         // Get the player's pokemon from database
         playerPokemon = Singleton<DataBase>.Instance.GetPlayerPokemon() == null ? defaultPokemon : Singleton<DataBase>.Instance.GetPlayerPokemon();
         if (playerPokemon == null) return;
+        playerStatProperty.PokemonName = playerPokemon.name;
 
         // Get Pokemon ability list
         playerAbilities = playerPokemon.abilities;
@@ -251,6 +249,7 @@ public class BattleSystem : Singleton<BattleSystem>
         // Generate an opponent's pokemon
         opponentPokemon = pokemonList[Random.Range(0, pokemonList.Length)];
         if (opponentPokemon == null) return;
+        opponentStatProperty.PokemonName = opponentPokemon.name;
 
         // Get Pokemon ability list
         opponentAbilities = opponentPokemon.abilities;
