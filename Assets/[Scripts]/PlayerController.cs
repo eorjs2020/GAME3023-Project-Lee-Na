@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 targetLocation;
     [SerializeField] private float speed;
     [SerializeField] private PlayerDirections direction = PlayerDirections.South;
-    private bool isWalking;
+    public bool isWalking;
     [SerializeField] private int EncounterPercentage;
     private Animator animator;
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        SetAnimationClip();
+        //SetAnimationClip();
     }
 
     private void Move()
@@ -58,14 +58,14 @@ public class PlayerController : MonoBehaviour
                 targetLocation = transform.position;
                 targetLocation.x += input.x;
                 targetLocation.y += input.y;
-                if (input.x > 0)
+                /*if (input.x > 0)
                     direction = PlayerDirections.East;
                 else if (input.x < 0)
                     direction = PlayerDirections.West;
                 else if (input.y > 0)
                     direction = PlayerDirections.North;
                 else if (input.y < 0)
-                    direction = PlayerDirections.South;
+                    direction = PlayerDirections.South;*/
                 if (IsWalkable(targetLocation))
                     StartCoroutine(MoveCheck(targetLocation));
             }
