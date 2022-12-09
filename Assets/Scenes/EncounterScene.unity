@@ -756,6 +756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 531789918}
   - component: {fileID: 531789919}
+  - component: {fileID: 531789920}
   m_Layer: 0
   m_Name: FrontSprite
   m_TagString: Untagged
@@ -830,6 +831,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &531789920
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531789917}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &705803313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,6 +1186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961198553}
   - component: {fileID: 961198554}
+  - component: {fileID: 961198555}
   m_Layer: 0
   m_Name: PlayerPokemon
   m_TagString: Untagged
@@ -1180,7 +1202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961198552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.88, y: -1.28, z: 0}
+  m_LocalPosition: {x: 7.86, y: 3.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1206,6 +1228,26 @@ MonoBehaviour:
   maxHealthText: {fileID: 335846878}
   currentHealthText: {fileID: 2132179889}
   pokemon: {fileID: 11400000, guid: c8ec5e1073d99594d832ad6119c5a953, type: 2}
+--- !u!95 &961198555
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961198552}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ff5cad62332d0ef4e9523d6788ac16fd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &978078226
 GameObject:
   m_ObjectHideFlags: 0
