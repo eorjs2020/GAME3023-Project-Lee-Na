@@ -10,6 +10,7 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
     [SerializeField] private int numberOfTextLine = 3;
     private List<string> messages = new List<string>();
     private string displayText;
+    private string messageSender;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
         if (messageText == null) messageText = GameObject.Find("BattleMessage").GetComponent<TextMeshProUGUI>();
         
         messages.Add("You met a wild Pokemon!");
-        messages.Add("Pokemon wants to fight!");
+        messages.Add("A wild Pokemon wants to fight!");
         messages.Add("");
 
         UpdateMessageText();
@@ -40,24 +41,35 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
         displayText = "";
         foreach (string message in messages)
         {
+            if (message == "") continue;
+
             displayText += message + '\n';
         }
         messageText.text = displayText;
     }
 
-    public void SendTextMessage(string message)
+    public void SendTextMessage(string message, string sender)
     {
-        // Limited message line
-        if (messages.Count > numberOfTextLine)
+        // Different message sender. Delete previous messages
+        Debug.Log($"Message Sender : {sender}");
+        if (sender != messageSender)
         {
-            messages.RemoveAt(0);
+            messages.RemoveRange(0, messages.Count);
+            messageSender = sender;
+        }
+
+        // Limited message line
+        if (messages.Count >= numberOfTextLine)
+        {
             messages[0] = messages[1];
             messages[1] = messages[2];
-            messages.Add(message);
-        } else
+            messages[2] = message;
+        }
+        else
         {
             messages.Add(message);
         }
+
         UpdateMessageText();
     }
 
