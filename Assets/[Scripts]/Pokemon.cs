@@ -46,4 +46,10 @@ public class Pokemon : ScriptableObject
     {
         get { return defense; }
     }  
+
+    public List<Ability> Abilities
+    {
+        get { return abilities; }
+        set { abilities = value; }
+    }
 }
