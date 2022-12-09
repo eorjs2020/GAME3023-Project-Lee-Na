@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: StrongPunch
   abilityType: 0
-  chanceToSucceedRate: 1
   abilityDescription: Attack with Stun
+  chanceToGainAbility: 0.3
   effects:
   - {fileID: 11400000, guid: 76d57d6fffe491b45a8c67444f14409e, type: 2}
-  - {fileID: 11400000, guid: 794b65cab041862459df387dfd079292, type: 2}
+  - {fileID: 11400000, guid: 0a15221568b36c3468a6164bf6934722, type: 2}
