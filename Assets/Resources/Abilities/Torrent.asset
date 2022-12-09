@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
-  m_Name: BasicHeal
+  m_Name: Torrent
   m_EditorClassIdentifier: 
-  abilityName: BasicHeal
-  abilityType: 2
+  abilityName: Torrent
+  abilityType: 1
   chanceToSucceedRate: 1
-  abilityDescription: Basic Heal 10points
+  abilityDescription: Range Attack 15
   effects:
-  - {fileID: 11400000, guid: 2285f29c858cfbe4c849890b03641c2f, type: 2}
+  - {fileID: 11400000, guid: 76d57d6fffe491b45a8c67444f14409e, type: 2}

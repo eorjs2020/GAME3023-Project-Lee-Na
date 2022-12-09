@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
-  m_Name: Flee
+  m_Name: HyperFlee
   m_EditorClassIdentifier: 
-  abilityName: Flee
+  abilityName: HyperFlee
   abilityType: 3
   chanceToSucceedRate: 1
-  abilityDescription: Flee 20%
+  abilityDescription: Flee 50% chance
   effects:
-  - {fileID: 11400000, guid: 9c9345d7ccf733b4a81d538e8524a9bd, type: 2}
+  - {fileID: 11400000, guid: fda95cfd74c0c6548885955ca7f66d02, type: 2}

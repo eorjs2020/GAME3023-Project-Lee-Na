@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757c766f8d2a64f4eaec366f79bea3aa, type: 3}
+  m_Name: Blastoise
+  m_EditorClassIdentifier: 
+  name: Blastoise
+  description: Its English name is a portmanteau of "blast" and "tortoise".
+  frontSprite: {fileID: 21300000, guid: 9181300e26c5918429a6279930bb1f4c, type: 3}
+  backSprite: {fileID: 21300000, guid: 4627c02cdac4dec4e9712d616288a28b, type: 3}
+  maxHp: 200
+  currentHp: 200
+  attack: 20
+  defense: 0
+  abilities:
+  - {fileID: 11400000, guid: 6c16ea04d97b34e469bfc33f1ed6ec3b, type: 2}
+  - {fileID: 11400000, guid: c441ceb2eff76914bbad124b525058c1, type: 2}
+  - {fileID: 11400000, guid: 027dcc194781391418bbf17d48bfcc5c, type: 2}
+  - {fileID: 11400000, guid: ce76e32d15ced904fb5e67068f3d4148, type: 2}
+  abilityNum: 4

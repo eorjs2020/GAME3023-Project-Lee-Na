@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
-  m_Name: Spit
+  m_Name: BasicCure
   m_EditorClassIdentifier: 
-  abilityName: Spit
-  abilityType: 1
+  abilityName: BasicCure
+  abilityType: 2
   chanceToSucceedRate: 1
-  abilityDescription: Attack
+  abilityDescription: Basic Heal 10points
   effects:
-  - {fileID: 11400000, guid: b9a86ac709283c04fa778d98ce570b03, type: 2}
+  - {fileID: 11400000, guid: 2285f29c858cfbe4c849890b03641c2f, type: 2}

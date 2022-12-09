@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 757c766f8d2a64f4eaec366f79bea3aa, type: 3}
-  m_Name: Salamander
+  m_Name: Ivysaur
   m_EditorClassIdentifier: 
-  name: Salamander
-  description: Salamander
-  frontSprite: {fileID: 21300000, guid: 112eaed68a113254b8d76834a1b22a21, type: 3}
-  backSprite: {fileID: 21300000, guid: 1125833012f462c47b241ca2ae978c48, type: 3}
-  maxHp: 100
-  currentHp: 100
-  attack: 15
+  name: Ivysaur
+  description: It is a playable character in Super Smash Bros.
+  frontSprite: {fileID: 21300000, guid: 30aa4b1b793228644884e2bc71175eb8, type: 3}
+  backSprite: {fileID: 21300000, guid: 4a63d3f5158594d49854a36e8f6620df, type: 3}
+  maxHp: 150
+  currentHp: 150
+  attack: 10
   defense: 0
   abilities:
-  - {fileID: 11400000, guid: 0d02a780d9922dd4c8481281b0282354, type: 2}
-  - {fileID: 11400000, guid: 027dcc194781391418bbf17d48bfcc5c, type: 2}
-  - {fileID: 11400000, guid: c441ceb2eff76914bbad124b525058c1, type: 2}
   - {fileID: 11400000, guid: 6c16ea04d97b34e469bfc33f1ed6ec3b, type: 2}
+  - {fileID: 11400000, guid: b97ec076a0d3b6a48b03a21047849331, type: 2}
+  - {fileID: 11400000, guid: de99a561df4edaa4fb80ba3714eb015b, type: 2}
+  - {fileID: 0}
   abilityNum: 4

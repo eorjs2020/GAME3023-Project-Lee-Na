@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
-  m_Name: Flee
+  m_Name: HyperCure
   m_EditorClassIdentifier: 
-  abilityName: Flee
-  abilityType: 3
+  abilityName: HyperCure
+  abilityType: 2
   chanceToSucceedRate: 1
-  abilityDescription: Flee 20%
+  abilityDescription: Heal 30 potins
   effects:
-  - {fileID: 11400000, guid: 9c9345d7ccf733b4a81d538e8524a9bd, type: 2}
+  - {fileID: 11400000, guid: 2608e8eef74ce8f499b4a63d5fc3376e, type: 2}

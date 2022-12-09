@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
   m_Name: StrongPunch
   m_EditorClassIdentifier: 
-  abilityName: Punch
+  abilityName: StrongPunch
   abilityType: 0
   chanceToSucceedRate: 1
   abilityDescription: Attack with Stun

@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
-  m_Name: Flee
+  m_Script: {fileID: 11500000, guid: aab5e828b42c8ec40a7e446853851f41, type: 3}
+  m_Name: Attack30
   m_EditorClassIdentifier: 
-  abilityName: Flee
-  abilityType: 3
-  chanceToSucceedRate: 1
-  abilityDescription: Flee 20%
-  effects:
-  - {fileID: 11400000, guid: 9c9345d7ccf733b4a81d538e8524a9bd, type: 2}
+  effectName: Attack30
+  effectType: 0
+  strengthNumber: 30

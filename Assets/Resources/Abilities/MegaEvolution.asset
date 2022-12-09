@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4b6b9e183557624a836bb51307773fa, type: 3}
-  m_Name: Flee
+  m_Name: MegaEvolution
   m_EditorClassIdentifier: 
-  abilityName: Flee
-  abilityType: 3
+  abilityName: MegaEvolution
+  abilityType: 1
   chanceToSucceedRate: 1
-  abilityDescription: Flee 20%
+  abilityDescription: Range Attack 30 potins and Stun
   effects:
-  - {fileID: 11400000, guid: 9c9345d7ccf733b4a81d538e8524a9bd, type: 2}
+  - {fileID: 11400000, guid: 6e5234ce8db2c664bbe4ef874e56354b, type: 2}
+  - {fileID: 11400000, guid: 0a15221568b36c3468a6164bf6934722, type: 2}
