@@ -38,7 +38,7 @@ public class NPC : MonoBehaviour
     public void SetAbility(Button button)
     {        
         int temp = int.Parse(button.name);
-        DataBase.Instance.GetPokemon().Abilities[temp] = currentAbility;
+        DataBase.Instance.GetPlayerPokemon().Abilities[temp] = currentAbility;
         chooseWhere.SetActive(false);        
     }
 
@@ -50,8 +50,8 @@ public class NPC : MonoBehaviour
         }
         for (int i = 0; i < PlayerSlot.Count; ++i)
         {
-            if (DataBase.Instance.GetPokemon().Abilities[i] != null)
-                PlayerSlot[i].GetComponentInChildren<TextMeshProUGUI>().text = DataBase.Instance.GetPokemon().Abilities[i].name;
+            if (DataBase.Instance.GetPlayerPokemon().Abilities[i] != null)
+                PlayerSlot[i].GetComponentInChildren<TextMeshProUGUI>().text = DataBase.Instance.GetPlayerPokemon().Abilities[i].name;
             else
                 PlayerSlot[i].GetComponentInChildren<TextMeshProUGUI>().text = "None";
         }

@@ -7,8 +7,7 @@ public class DataBase : Singleton<DataBase>
     public Vector3 savedPosition;
     public Vector3 originalPosition;
     public bool isThereSave;
-    private Pokemon pokemon;
-
+    private Pokemon playerPokemon;
 
     private void Awake()
     {
@@ -23,11 +22,8 @@ public class DataBase : Singleton<DataBase>
         }
     }   
 
-    public Pokemon GetPokemon()
+    public Pokemon GetPlayerPokemon()
     {
-        return pokemon;
+        return playerPokemon;
     }
-
-    
 }
-
