@@ -38,11 +38,6 @@ public class BattleSystem : Singleton<BattleSystem>
     [SerializeField] private bool isInOpponentAction = false;
     [SerializeField] private bool isDebugging = false;
 
-    [Header("Animator")]
-    public Animator playerAnimator;
-    public Animator opponentAnimator;
-    public ParticleSystem playerParticle;
-    public ParticleSystem opponentParticle;
 
     private void Awake()
     {
@@ -66,7 +61,7 @@ public class BattleSystem : Singleton<BattleSystem>
 
         SetPlayer();
         SetOpponent();
-
+        SoundManager.Instance.PlayMusic(Sound.BATTLE_MUSIC);
         if (playerAbilities == null || opponentAbilities == null) { Debug.LogError("Actor abilities are null"); return; }
     }
 
@@ -203,7 +198,7 @@ public class BattleSystem : Singleton<BattleSystem>
     public void EndBattle()
     {
         isBattleEnd = true;
-
+        //SceneManger.
         if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
     }
 

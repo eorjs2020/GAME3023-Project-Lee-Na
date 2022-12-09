@@ -52,7 +52,8 @@ public class Ability : ScriptableObject
             case AbilityEffectType.ATTACK:
                 if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
                 {
-                    //TODO Animation, Sound_FX
+                    caster.PlayAnimation(AbilityNum.ATTACK);
+                    SoundManager.Instance.PlaySoundFX(Sound.ATTACK, Chanel.BATTLE_SOUND_FX);
                     battleLog = $"{caster.name} : {target.name} got damaged '{effect.strengthNumber}' points.";
                     GetDamaged(target, effect.strengthNumber);
                 }
@@ -64,7 +65,8 @@ public class Ability : ScriptableObject
             case AbilityEffectType.HEAL:
                 if (Random.Range(0.0f, 1.0f) <= effect.chanceToSucceedRate)
                 {
-                    //TODO PaticlePlay, Sound_FX
+                    caster.PlayAnimation(AbilityNum.HEAL);
+                    SoundManager.Instance.PlaySoundFX(Sound.HEAL, Chanel.BATTLE_SOUND_FX);
                     battleLog = $"{caster.name} : {caster.name} heald '{effect.strengthNumber}' points";
                     GetHeald(caster, effect.strengthNumber);
                 } else {

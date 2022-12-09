@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.PlayMusic(Sound.BATTLE_MUSIC);
         animator = GetComponent<Animator>();
         dustTrail = GetComponentInChildren<ParticleSystem>();
         isInteract = false;
@@ -79,6 +80,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveCheck(Vector3 targetPosition)
     {
         isWalking = true;
+        SoundManager.Instance.PlaySoundFX(Sound.WALK, Chanel.PLAYER_FOOTSTEP_FX);
         createDustTrail();
         while ((targetPosition - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
