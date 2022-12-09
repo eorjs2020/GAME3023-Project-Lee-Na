@@ -505,8 +505,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1031793205}
+  - component: {fileID: 1031793206}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DataBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,6 +528,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031793206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031793204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44866ae012e466e40ad887378ca4b91a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedPosition: {x: 0, y: 0, z: 0}
+  originalPosition: {x: 0, y: 0, z: 0}
+  isThereSave: 0
+  pokemon: {fileID: 11400000, guid: 70d2eacae12941044894ce11019eed96, type: 2}
 --- !u!1 &1251305440
 GameObject:
   m_ObjectHideFlags: 0
@@ -43213,7 +43230,7 @@ PrefabInstance:
     - target: {fileID: 9015575936536650012, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
       propertyPath: ShapeModule.m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 1a4f52b613391cd449af3ad2e44affeb, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 9015575936536650015, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
       propertyPath: m_SortingLayer
       value: 3
@@ -43295,9 +43312,41 @@ PrefabInstance:
       value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGrass.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGrass.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGrass.r
+      value: 0.003921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGround.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGround.b
+      value: 0.44705886
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGround.g
+      value: 0.7176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: trailGround.r
+      value: 0.83921576
+      objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233028, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
       propertyPath: collisionObject.m_Bits
       value: 128
       objectReference: {fileID: 0}
+    - target: {fileID: 9015575936608233029, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 13da02678101803458e8cfe947317f38, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9015575936608233025, guid: d6807d420efb16642958cb2ac2b47b83, type: 3}

@@ -1184,6 +1184,7 @@ GameObject:
   - component: {fileID: 961198553}
   - component: {fileID: 961198555}
   - component: {fileID: 961198554}
+  - component: {fileID: 961198555}
   m_Layer: 0
   m_Name: PlayerPokemon_Back
   m_TagString: Untagged
