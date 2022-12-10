@@ -11,7 +11,7 @@ public class Ability : ScriptableObject
     public string abilityName;
     public AbilityType abilityType;
     public string abilityDescription;
-    [Range(0f, 1f)] [SerializeField] private float chanceToGainAbility = 0.3f;
+    [Range(0f, 1f)] [SerializeField] public float chanceToGainAbility = 0.3f;
 
     // TODO - add visual effect
     // TODO - add sound

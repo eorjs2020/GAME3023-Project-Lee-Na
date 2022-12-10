@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Blaze
   abilityType: 0
-  chanceToSucceedRate: 1
   abilityDescription: Melee Attack 10points
+  chanceToGainAbility: 1
   effects:
   - {fileID: 11400000, guid: b9a86ac709283c04fa778d98ce570b03, type: 2}

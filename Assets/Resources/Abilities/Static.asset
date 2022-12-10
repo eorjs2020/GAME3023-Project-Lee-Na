@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Static
   abilityType: 0
-  chanceToSucceedRate: 1
   abilityDescription: Melee attack 10 and Stun
+  chanceToGainAbility: 1
   effects:
   - {fileID: 11400000, guid: b9a86ac709283c04fa778d98ce570b03, type: 2}
   - {fileID: 11400000, guid: 794b65cab041862459df387dfd079292, type: 2}

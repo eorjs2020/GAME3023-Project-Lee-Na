@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Attack10
   effectType: 0
-  strengthNumber: 10
+  strengthNumber: 20
   chanceToSucceedRate: 1

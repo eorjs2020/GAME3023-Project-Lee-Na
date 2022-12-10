@@ -15,6 +15,8 @@ public class BattleSystem : Singleton<BattleSystem>
 {
     [Header("Battle System Status")]
     [SerializeField] public bool isBattleEnd = false;
+    public AbilityChangeSystem abilityChangeSystem;
+    public GameObject abilityGainUI;
 
     [Header("Actor Propeties")]
     public Pokemon playerPokemon;
@@ -54,6 +56,9 @@ public class BattleSystem : Singleton<BattleSystem>
 
     private void Start()
     {
+        abilityChangeSystem = FindObjectOfType<AbilityChangeSystem>();
+        abilityGainUI.SetActive(false);
+
         // Get around system properties
         playerStatProperty = GameObject.Find("PlayerPokemon_Back").GetComponent<ActorStatProperty>();
         opponentStatProperty = GameObject.Find("OpponentPokemon_Front").GetComponent<ActorStatProperty>();
@@ -198,8 +203,44 @@ public class BattleSystem : Singleton<BattleSystem>
     public void EndBattle(ActorStatProperty loser, ActorStatProperty winner)
     {
         isBattleEnd = true;
+
+        float randNum = Random.Range(0.0f, 1.0f);
+        List<Ability> gainedAbilities = new List<Ability>();
+        foreach (Ability ability in opponentAbilities)
+        {
+            if (ability != null)
+            {
+                if (randNum <= ability.chanceToGainAbility)
+                {
+                    Debug.Log($"randNum = {randNum}, ability.chanceToGainAbility = {ability.chanceToGainAbility}");
+                    gainedAbilities.Add(ability);
+                }
+            }
+        }
+        
+        if (gainedAbilities.Count > 0)
+        {
+            Debug.Log($"gainedAbilities.Count = {gainedAbilities.Count}");
+            abilityGainUI.SetActive(true);
+            abilityChangeSystem.SetGainedAbilityButtons(gainedAbilities);
+            abilityChangeSystem.SetCurrentAbilityButtons(playerPokemon);
+        }
+        else
+        {
+
+        }
+
         //SceneManger.
         if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
+    }
+
+    public void DirectKill()
+    {
+        opponentStatProperty.CurrentHealth = opponentStatProperty.MaxHealth;
+        opponentStatProperty.gameObject.SetActive(false);
+        opponentStatProperty.GetMaxHPText().gameObject.SetActive(false);
+        opponentStatProperty.GetCurrentHPText().gameObject.SetActive(false);
+        EndBattle(opponentStatProperty, playerStatProperty);
     }
 
 

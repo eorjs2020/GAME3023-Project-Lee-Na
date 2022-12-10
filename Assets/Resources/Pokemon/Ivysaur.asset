@@ -21,7 +21,7 @@ MonoBehaviour:
   attack: 10
   defense: 0
   abilities:
-  - {fileID: 11400000, guid: 6c16ea04d97b34e469bfc33f1ed6ec3b, type: 2}
+  - {fileID: 11400000, guid: 541f1649ac2a11d46882c52404da3f20, type: 2}
   - {fileID: 11400000, guid: b97ec076a0d3b6a48b03a21047849331, type: 2}
   - {fileID: 11400000, guid: de99a561df4edaa4fb80ba3714eb015b, type: 2}
   - {fileID: 0}

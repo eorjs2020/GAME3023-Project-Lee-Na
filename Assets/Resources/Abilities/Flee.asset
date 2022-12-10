@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Flee
   abilityType: 3
-  chanceToSucceedRate: 0.2
   abilityDescription: Flee 20%
+  chanceToGainAbility: 1
   effects:
   - {fileID: 11400000, guid: 9c9345d7ccf733b4a81d538e8524a9bd, type: 2}
