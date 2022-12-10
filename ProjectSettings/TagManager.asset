@@ -44,6 +44,9 @@ TagManager:
   - name: Ground
     uniqueID: 2067485683
     locked: 0
+  - name: Grass
+    uniqueID: 2223116237
+    locked: 0
   - name: Obstacles
     uniqueID: 4017346729
     locked: 0

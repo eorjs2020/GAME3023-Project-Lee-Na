@@ -197,9 +197,24 @@ public class BattleSystem : Singleton<BattleSystem>
 
     public void EndBattle(ActorStatProperty loser, ActorStatProperty winner)
     {
-        isBattleEnd = true;
-        //SceneManger.
+        isBattleEnd = true;        
         if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
+
+        if (loser.name == "PlayerPokemon_Back")
+        {
+            DataBase.Instance.LoseBattle();
+
+        }
+        else
+        {
+
+        }
+    }
+
+
+    public void Test()
+    {
+        Debug.Log("AA");
     }
 
 

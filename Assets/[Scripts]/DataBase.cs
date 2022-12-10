@@ -8,10 +8,11 @@ using UnityEngine.UI;
 public class DataBase : Singleton<DataBase>
 {
     public Vector3 savedPosition;
-    public Vector3 originalPosition;
-    public bool isThereSave;
+    public Vector3 quickSavedPosition;    
     public Pokemon playerPokemon;
 
+    private Vector3 originalPosition = new Vector3(-16.518f, -12.5f, 0);
+    public bool isLoose = true;    
     private void Awake()
     {
         var obj = FindObjectsOfType<DataBase>();
@@ -41,28 +42,55 @@ public class DataBase : Singleton<DataBase>
 
     public void SaveGame()
     {
+        savedPosition = GameObject.FindObjectOfType<PlayerController>().gameObject.transform.position;
         SaveLoad.SaveData(this);
         Debug.Log(Application.persistentDataPath);
-    }
+    }   
 
     public void LoadGame()
-    {
-        
+    {        
         Data data = SaveLoad.LoadData();
         if (data != null)
         {
-            Vector3 temp = GameObject.FindObjectOfType<PlayerController>().gameObject.transform.position;
-            temp.x = data.positionX;
-            temp.y = data.positionY;
-            temp.z = data.positionZ;
+            savedPosition = new Vector3( data.positionX, data.positionY, data.positionZ);            
             playerPokemon = Resources.Load<Pokemon>($"Pokemon/{data.Pokemon}");
             playerPokemon.Abilities.Clear();
             playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability1}"));
             playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability2}"));
             playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability3}"));
             playerPokemon.Abilities.Add(Resources.Load<Ability>($"Abilities/{data.Ability4}"));            
-        }        
+        }
+        else
+        {
+            NewGame();
+        }
     }
+
+    public void LoadPlayer()
+    {
+        GameObject.FindObjectOfType<PlayerController>().gameObject.transform.position = savedPosition;
+    }
+
+    public void LoseBattle()
+    {
+        isLoose = true;
+        SceneManager.LoadScene("MainScene");       
+    }
+
+    public void WinGame()
+    {
+        isLoose = false;
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void NewGame()
+    {
+        savedPosition = originalPosition;
+        playerPokemon = Resources.Load<Pokemon>("Pokemon/Charmander");
+    }
+
+
+   
 
 
 }
