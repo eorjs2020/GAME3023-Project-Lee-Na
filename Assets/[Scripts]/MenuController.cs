@@ -61,6 +61,7 @@ public class MenuController : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("MenuScene");
+        SoundManager.Instance.StopMusic();
         Time.timeScale = 1.0f;
     }
   

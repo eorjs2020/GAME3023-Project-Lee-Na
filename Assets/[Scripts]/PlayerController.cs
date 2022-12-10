@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {       
-        SoundManager.Instance.PlayMusic(Sound.BATTLE_MUSIC);
+        SoundManager.Instance.PlayMusic(Sound.OVERWORLD_MUSIC);
         animator = GetComponent<Animator>();
         dustTrail = GetComponentInChildren<ParticleSystem>();
         isInteract = false;

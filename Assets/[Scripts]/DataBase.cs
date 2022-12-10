@@ -32,14 +32,6 @@ public class DataBase : Singleton<DataBase>
         return playerPokemon;
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SaveGame();
-        }
-    }
-
     public void SaveGame()
     {
         savedPosition = GameObject.FindObjectOfType<PlayerController>().gameObject.transform.position;

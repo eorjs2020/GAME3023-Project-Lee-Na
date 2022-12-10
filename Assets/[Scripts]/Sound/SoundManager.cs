@@ -48,4 +48,9 @@ public class SoundManager : Singleton<SoundManager>
         channels[(int)Chanel.MUSIC].loop = true;
         channels[(int)Chanel.MUSIC].Play();
     }
+
+    public void StopMusic()
+    {
+        channels[(int)Chanel.MUSIC].Stop();
+    }
 }
