@@ -60,7 +60,7 @@ public class MenuController : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MenuScne");
+        SceneManager.LoadScene("MenuScene");
         Time.timeScale = 1.0f;
     }
   

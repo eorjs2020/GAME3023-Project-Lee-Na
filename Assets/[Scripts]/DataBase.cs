@@ -77,7 +77,7 @@ public class DataBase : Singleton<DataBase>
         SceneManager.LoadScene("MainScene");       
     }
 
-    public void WinGame()
+    public void WinBattle()
     {
         isLoose = false;
         SceneManager.LoadScene("MainScene");

@@ -227,7 +227,7 @@ public class BattleSystem : Singleton<BattleSystem>
         }
         else
         {
-
+            DataBase.Instance.WinBattle();
         }
 
         //SceneManger.
@@ -236,7 +236,6 @@ public class BattleSystem : Singleton<BattleSystem>
         if (loser.name == "PlayerPokemon_Back")
         {
             DataBase.Instance.LoseBattle();
-
         }
         else
         {
