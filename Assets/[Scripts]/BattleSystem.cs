@@ -232,6 +232,16 @@ public class BattleSystem : Singleton<BattleSystem>
 
         //SceneManger.
         if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
+
+        if (loser.name == "PlayerPokemon_Back")
+        {
+            DataBase.Instance.LoseBattle();
+
+        }
+        else
+        {
+
+        }
     }
 
     public void DirectKill()

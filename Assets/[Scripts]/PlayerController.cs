@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum PlayerDirections
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public bool isWalking;
     [SerializeField] private int EncounterPercentage;
     private Animator animator;
-
+    
     public LayerMask grass;
     public LayerMask NPC;    
     public LayerMask collisionObject;
@@ -31,13 +32,26 @@ public class PlayerController : MonoBehaviour
     public Color trailGround;
     public Color trailGrass;
 
+    
+
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         SoundManager.Instance.PlayMusic(Sound.BATTLE_MUSIC);
         animator = GetComponent<Animator>();
         dustTrail = GetComponentInChildren<ParticleSystem>();
         isInteract = false;
+
+        if (DataBase.Instance.isLoose)
+        {
+            DataBase.Instance.LoadPlayer();            
+        }
+        else
+        {
+            transform.position = DataBase.Instance.quickSavedPosition;
+            DataBase.Instance.isLoose = true;
+        }
+
     }
 
     // Update is called once per frame
@@ -45,6 +59,10 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         SetAnimationClip();
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            DataBase.Instance.SaveGame();
+        }
     }
 
     private void Move()
@@ -141,10 +159,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grass))
         {
+            
             if (Random.Range(1, 101) <= EncounterPercentage)
-            {                 
-                //Battle Scene Change
-                //SceneManager.LoadScene("BattleScene");
+            {
+                DataBase.Instance.quickSavedPosition = transform.position;
+                SceneManager.LoadScene("EncounterScene");
             }
         }
     }
