@@ -15,6 +15,7 @@ public class DataBase : Singleton<DataBase>
     public bool isLoose = true;    
     private void Awake()
     {
+        //Duplication Check
         var obj = FindObjectsOfType<DataBase>();
         if (obj.Length == 1)
         {
@@ -34,6 +35,7 @@ public class DataBase : Singleton<DataBase>
 
     public void SaveGame()
     {
+        //Saving Function
         savedPosition = GameObject.FindObjectOfType<PlayerController>().gameObject.transform.position;
         SaveLoad.SaveData(this);
         Debug.Log(Application.persistentDataPath);

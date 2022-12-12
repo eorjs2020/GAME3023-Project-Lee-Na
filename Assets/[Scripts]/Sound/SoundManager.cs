@@ -11,6 +11,7 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Awake()
     {
+        // duplication check
         var obj = FindObjectsOfType<SoundManager>();
         if (obj.Length == 1)
         {
@@ -25,6 +26,7 @@ public class SoundManager : Singleton<SoundManager>
 
     private void InitializeSoundFX()
     {
+        // Load the audio files from source
         channels = GetComponents<AudioSource>().ToList();
         audioClips = new List<AudioClip>();
         audioClips.Add(Resources.Load<AudioClip>("Audio/stepstone_1"));
@@ -36,6 +38,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlaySoundFX(Sound sound, Chanel channel)
     {
+        // Playing Sound Effect
         channels[(int)channel].clip = audioClips[(int)sound];
         channels[(int)channel].loop = false;
         channels[(int)channel].Play();
@@ -43,6 +46,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayMusic(Sound sound)
     {
+        // Playing BGM
         channels[(int)Chanel.MUSIC].clip = audioClips[(int)sound];
         channels[(int)Chanel.MUSIC].volume = 0.25f;
         channels[(int)Chanel.MUSIC].loop = true;

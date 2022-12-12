@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Data
 {
+    //Data what this game need to save.
     public float positionX;    
     public float positionY;
     public float positionZ;
@@ -15,7 +16,7 @@ public class Data
     public string Ability4;
 
     public Data(DataBase data)
-    {
+    { 
         positionX = data.savedPosition.x;
         positionY = data.savedPosition.y;
         positionZ = data.savedPosition.z;
