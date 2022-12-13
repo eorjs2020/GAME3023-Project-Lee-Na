@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// Handling in-battle messages class
+
 public class BattleMessageManager : Singleton<BattleMessageManager>
 {
     [Header("Manager Properties")]
@@ -11,7 +13,6 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
     private List<string> messages = new List<string>();
     private string displayText;
     private string messageSender;
-
 
     private void Start()
     {
@@ -24,6 +25,7 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
         UpdateMessageText();
     }
 
+    // Keep updating battle message to display
     public void UpdateMessageText()
     {
         displayText = "";
@@ -36,6 +38,7 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
         messageText.text = displayText;
     }
 
+    // Get Text message from the battle. over 3 lines to display, will be removed last one
     public void SendTextMessage(string message, string sender)
     {
         // Different message sender. Delete previous messages

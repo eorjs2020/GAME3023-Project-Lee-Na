@@ -18,6 +18,7 @@ public class AbilityChangeSystem : MonoBehaviour
 
     private Pokemon playerPokemon;
 
+    // Set action buttons for player current aiblities
     public void SetCurrentAbilityButtons(Pokemon pokemon)
     {
         playerPokemon = pokemon;
@@ -35,6 +36,7 @@ public class AbilityChangeSystem : MonoBehaviour
         }
     }
 
+    // set action buttons to desired to get
     public void SetGainedAbilityButtons(List<Ability> abilities)
     {
         gainedAbilities = abilities;
@@ -51,11 +53,13 @@ public class AbilityChangeSystem : MonoBehaviour
         }
     }
 
+    // Hide unnessessary buttons
     public void DiaplaySelectedAbility()
     {
         selectedAbilityDisplayText.text = selectedAbility.abilityName;
     }
 
+    // When the player chose an ability, then change the button status
     public void UpdateGainedAbilityButtons()
     {
         if (selectableAbilitycount <= 0)

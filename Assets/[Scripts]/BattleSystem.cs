@@ -99,6 +99,7 @@ public class BattleSystem : Singleton<BattleSystem>
         }
     }
 
+    // Coroutine funciton for anomaly status. Skip the turn.
     IEnumerator StatusAnomaly(ActorStatProperty actorStatProperty)
     {
         // Time space a bit between turns
@@ -190,6 +191,7 @@ public class BattleSystem : Singleton<BattleSystem>
     {
         isBattleEnd = true;
 
+        // Only processing new ability gaining when the winner is the player
         if (winner.IndicatorStr == "Player")
         {
             // Calculating each ability with independant gaining chance rate
@@ -218,7 +220,9 @@ public class BattleSystem : Singleton<BattleSystem>
             {
                 DataBase.Instance.WinBattle();
             }
-        } else
+        } 
+        // End battle. Player Lose
+        else
         {
             DataBase.Instance.LoseBattle();
         }
@@ -226,6 +230,7 @@ public class BattleSystem : Singleton<BattleSystem>
         if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
     }
 
+    // Debuging functionality
     public void DirectKill()
     {
         opponentStatProperty.CurrentHealth = opponentStatProperty.MaxHealth;
@@ -236,7 +241,7 @@ public class BattleSystem : Singleton<BattleSystem>
     }
 
 
-    #region Actor setting
+    #region Actor initial setting
     private void SetPlayer()
     {
         // Get the player's pokemon from database

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Specific actor status objects. such as HP, name, pokemon status
 public enum AbilityNum
 {
     IDLE,

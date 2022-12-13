@@ -18,6 +18,7 @@ public class Pokemon : ScriptableObject
     [SerializeField] private int defense;
     public List<Ability> abilities;
     public int abilityNum = 4;
+
     public string GetName
     {
         get { return name; }

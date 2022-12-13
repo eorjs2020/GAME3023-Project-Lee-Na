@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [CreateAssetMenu(fileName = "NewAbility", menuName = "Pokemon/Ability")]
 public class Ability : ScriptableObject
@@ -16,8 +15,11 @@ public class Ability : ScriptableObject
     [Header("Effect Properties")]
     public List<AbilityEffect> effects;
 
-
-
+    /// <summary>
+    /// Use an ability
+    /// </summary>
+    /// <param name="caster"></param>
+    /// <param name="target"></param>
     public void UseAbility(ActorStatProperty caster, ActorStatProperty target)
     {
         BattleMessageManager.Instance.SendTextMessage($"{caster.PokemonName.ToUpper()} used an ability ({abilityName.ToUpper()}) to {target.PokemonName.ToUpper()}", caster.PokemonName);
@@ -31,10 +33,12 @@ public class Ability : ScriptableObject
         }
     }
 
+    // Apply ability effects in Ability. It can be more than one effect.
     public void ApplyEffect(ActorStatProperty caster, ActorStatProperty target, AbilityEffect effect)
     {
         string battleLog = "";
 
+        // Battle message will be depend on effect type
         switch (effect.effectType)
         {
             case AbilityEffectType.FLEE:
@@ -87,6 +91,7 @@ public class Ability : ScriptableObject
 
         BattleMessageManager.Instance.SendTextMessage(battleLog, caster.PokemonName);
         
+        // If the target is dead, end battle and hide target
         if (target.CurrentHealth <= 0)
         {
             Singleton<BattleMessageManager>.Instance.SendTextMessage($"{caster.PokemonName.ToUpper()} won the battle.", caster.PokemonName);
@@ -136,6 +141,4 @@ public class Ability : ScriptableObject
         target.GetMaxHPText().gameObject.SetActive(false);
         target.GetCurrentHPText().gameObject.SetActive(false);
     }
-
-
 }
