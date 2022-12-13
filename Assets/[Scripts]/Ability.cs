@@ -13,10 +13,6 @@ public class Ability : ScriptableObject
     public string abilityDescription;
     [Range(0f, 1f)] [SerializeField] public float chanceToGainAbility = 0.3f;
 
-    // TODO - add visual effect
-    // TODO - add sound
-    // TODO - add animation
-
     [Header("Effect Properties")]
     public List<AbilityEffect> effects;
 

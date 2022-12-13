@@ -1902,7 +1902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savedPosition: {x: 0, y: 0, z: 0}
-  originalPosition: {x: 0, y: 0, z: 0}
+  quickSavedPosition: {x: 0, y: 0, z: 0}
   playerPokemon: {fileID: 0}
   isLoose: 0
 --- !u!1 &420563205
@@ -2295,7 +2295,7 @@ GameObject:
   - component: {fileID: 705803319}
   m_Layer: 0
   m_Name: OpponentPokemon_Front
-  m_TagString: Untagged
+  m_TagString: Opponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2312,6 +2312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f2154005d0dee4bb27a3dd26951698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indicatorStr: Opponent
   pokemonName: 
   maxHealthText: {fileID: 2122116472}
   currentHealthText: {fileID: 835001688}
@@ -3097,7 +3098,7 @@ GameObject:
   - component: {fileID: 961198556}
   m_Layer: 0
   m_Name: PlayerPokemon_Back
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3130,6 +3131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f2154005d0dee4bb27a3dd26951698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indicatorStr: Player
   pokemonName: 
   maxHealthText: {fileID: 335846878}
   currentHealthText: {fileID: 2132179889}
@@ -3594,7 +3596,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AAAAAAAAA
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

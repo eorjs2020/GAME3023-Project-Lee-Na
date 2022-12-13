@@ -14,6 +14,7 @@ public enum AbilityNum
 public class ActorStatProperty : MonoBehaviour
 {
     [Header("Actor Stat Properties")]
+    [SerializeField] private string indicatorStr;
     [SerializeField] private string pokemonName;
     [SerializeField] private TextMeshProUGUI maxHealthText;
     [SerializeField] private TextMeshProUGUI currentHealthText;
@@ -85,6 +86,12 @@ public class ActorStatProperty : MonoBehaviour
     public void PlayAnimation(AbilityNum abitly)
     {
         animator.SetInteger(animatorParameter, (int)abitly);
+    }
+
+    public string IndicatorStr
+    {
+        get { return indicatorStr; }
+        set { indicatorStr = value; }
     }
 
     public TextMeshProUGUI GetMaxHPText() { return maxHealthText; }

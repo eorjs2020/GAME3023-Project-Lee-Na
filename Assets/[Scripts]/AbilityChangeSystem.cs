@@ -71,7 +71,7 @@ public class AbilityChangeSystem : MonoBehaviour
 
     public void EndAbilityChange()
     {
-
+        DataBase.Instance.WinBattle();
     }
 
     #region Ability Button Functions

@@ -40,20 +40,6 @@ public class BattleSystem : Singleton<BattleSystem>
     [SerializeField] private bool isInOpponentAction = false;
     [SerializeField] private bool isDebugging = false;
 
-
-    private void Awake()
-    {
-        var obj = FindObjectsOfType<BattleSystem>();
-        if (obj.Length == 1)
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void Start()
     {
         abilityChangeSystem = FindObjectOfType<AbilityChangeSystem>();
@@ -204,43 +190,40 @@ public class BattleSystem : Singleton<BattleSystem>
     {
         isBattleEnd = true;
 
-        float randNum = Random.Range(0.0f, 1.0f);
-        List<Ability> gainedAbilities = new List<Ability>();
-        foreach (Ability ability in opponentAbilities)
+        if (winner.IndicatorStr == "Player")
         {
-            if (ability != null)
+            // Calculating each ability with independant gaining chance rate
+            float randNum = Random.Range(0.0f, 1.0f);
+            List<Ability> gainedAbilities = new List<Ability>();
+            foreach (Ability ability in opponentAbilities)
             {
-                if (randNum <= ability.chanceToGainAbility)
+                if (ability != null)
                 {
-                    Debug.Log($"randNum = {randNum}, ability.chanceToGainAbility = {ability.chanceToGainAbility}");
-                    gainedAbilities.Add(ability);
+                    if (randNum <= ability.chanceToGainAbility)
+                    {
+                        Debug.Log($"randNum = {randNum}, ability.chanceToGainAbility = {ability.chanceToGainAbility}");
+                        gainedAbilities.Add(ability);
+                    }
                 }
             }
-        }
-        
-        if (gainedAbilities.Count > 0)
-        {
-            Debug.Log($"gainedAbilities.Count = {gainedAbilities.Count}");
-            abilityGainUI.SetActive(true);
-            abilityChangeSystem.SetGainedAbilityButtons(gainedAbilities);
-            abilityChangeSystem.SetCurrentAbilityButtons(playerPokemon);
-        }
-        else
-        {
-            DataBase.Instance.WinBattle();
-        }
 
-        //SceneManger.
-        if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
-
-        if (loser.name == "PlayerPokemon_Back")
+            if (gainedAbilities.Count > 0)
+            {
+                Debug.Log($"gainedAbilities.Count = {gainedAbilities.Count}");
+                abilityGainUI.SetActive(true);
+                abilityChangeSystem.SetGainedAbilityButtons(gainedAbilities);
+                abilityChangeSystem.SetCurrentAbilityButtons(playerPokemon);
+            }
+            else
+            {
+                DataBase.Instance.WinBattle();
+            }
+        } else
         {
             DataBase.Instance.LoseBattle();
         }
-        else
-        {
 
-        }
+        if (isDebugging) Debug.Log($"Battle End. _isInBattle = {isBattleEnd}");
     }
 
     public void DirectKill()

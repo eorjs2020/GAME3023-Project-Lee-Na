@@ -12,18 +12,6 @@ public class BattleMessageManager : Singleton<BattleMessageManager>
     private string displayText;
     private string messageSender;
 
-    private void Awake()
-    {
-        var obj = FindObjectsOfType<BattleMessageManager>();
-        if (obj.Length == 1)
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {
